@@ -5,7 +5,7 @@ pipeline {
     environment {
         REGISTRY = "localhost:5000"
         IMAGE_NAME = "anil-demo-app"
-        DOCKER = "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe"
+        DOCKER = "C:\\Users\\STUDENT\\AppData\\Local\\Programs\\DockerDesktop\\resources\\bin\\docker.exe"
     }
 
     stages {
@@ -39,6 +39,7 @@ pipeline {
         success {
             echo "Pipeline succeeded! Docker image created and pushed successfully."
         }
+
         failure {
             echo "Pipeline failed. Check Console Output."
         }
