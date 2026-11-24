@@ -1,9 +1,11 @@
+
 pipeline {
     agent any
 
     environment {
         REGISTRY = "localhost:5000"
         IMAGE_NAME = "anil-demo-app"
+        DOCKER = "C:\\Program Files\\Docker\\Docker\\resources\\bin\\docker.exe"
     }
 
     stages {
@@ -27,15 +29,18 @@ pipeline {
 
         stage('4. Push Image to Registry') {
             steps {
-                bat "docker push ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER}"
-                bat "docker push ${REGISTRY}/${IMAGE_NAME}:latest"
+                bat '"%DOCKER%" push %REGISTRY%/%IMAGE_NAME%:%BUILD_NUMBER%'
+                bat '"%DOCKER%" push %REGISTRY%/%IMAGE_NAME%:latest'
             }
         }
     }
 
     post {
         success {
-            echo "Pipeline succeeded! Image ${REGISTRY}/${IMAGE_NAME}:${BUILD_NUMBER} is available locally and in the registry."
+            echo "Pipeline succeeded! Docker image created and pushed successfully."
+        }
+        failure {
+            echo "Pipeline failed. Check Console Output."
         }
     }
 }
